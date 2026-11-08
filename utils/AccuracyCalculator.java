@@ -3,7 +3,7 @@ package utils;
 import systeminterface.INQueens;
 
 public class AccuracyCalculator {
-    public void accuracyScore (INQueens solver, int k){
+    public static void accuracyScore (INQueens solver, int k){
         double overall = 0;
         System.out.println("Accuracy calculating for algorithm " + solver.getAlgorithmName() + " with " + k + " test cases.");
 

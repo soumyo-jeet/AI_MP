@@ -4,6 +4,8 @@ import systeminterface.INQueens;
 import java.util.*;
 
 public class BeamSearching implements INQueens {
+    private long hx;
+    
     private int heuristic(int[] board) {
         int conflict = 0;
         for (int i = 0; i < board.length; i++) {
@@ -62,6 +64,16 @@ public class BeamSearching implements INQueens {
             }
             System.out.println();
         }
+    }
+
+    @Override 
+    public String getAlgorithmName() {
+        return "Hill Climbing";
+    }    
+
+    @Override
+    public long getHx() {
+        return hx;
     }
 }
     
