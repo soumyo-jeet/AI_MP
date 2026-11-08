@@ -3,14 +3,14 @@ package strategies;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import systeminterface.INQueens;
 
 public class HillClimbing implements INQueens {
 
     private int[] board;
     private int queens;
-    int iterations = 0;
+    private long  iterations = 0;
+    private long hx;
 
     // Generate initial board
     private void generateBoard(int n) {
@@ -106,6 +106,32 @@ public class HillClimbing implements INQueens {
         );
     }
 
+
+    
+    // Display chessboard
+    void printBoard(int[] board) {
+
+        int n = board.length;
+
+        for (int row = 0; row < n; row++) {
+
+            for (int col = 0; col < n; col++) {
+
+                if (board[col] == row) {
+                    System.out.print(" Q ");
+                }
+                else {
+                    System.out.print(" . ");
+                }
+            }
+
+            System.out.println();
+        }
+
+        System.out.println("Heuristic: " + heuristic(board));
+    }
+
+
     // Hill Climbing 
     @Override
     public void solve(int n) {
@@ -127,6 +153,7 @@ public class HillClimbing implements INQueens {
             printBoard(board);
 
             int currentH = heuristic(board);
+            this.hx = currentH;
 
             // Goal state reached
             if (currentH == 0) {
@@ -157,38 +184,14 @@ public class HillClimbing implements INQueens {
         }
     }
 
-    // Display chessboard
-    void printBoard(int[] board) {
 
-        int n = board.length;
+    @Override 
+    public String getAlgorithmName() {
+        return "Hill Climbing";
+    }    
 
-        for (int row = 0; row < n; row++) {
-
-            for (int col = 0; col < n; col++) {
-
-                if (board[col] == row) {
-                    System.out.print(" Q ");
-                }
-                else {
-                    System.out.print(" . ");
-                }
-            }
-
-            System.out.println();
-        }
-
-        System.out.println("Heuristic: " + heuristic(board));
-    }
-
-    // Accuracy score
-    void accuracyScore (int k) {
-        double success = 0;
-        for(int i = 1; i <= k; k++) {
-            solve(queens);
-            int h = heuristic(board);
-            if(h == 0) success++;
-        }
-
-        System.out.println("Accuracy Score: " + success / k);
+    @Override
+    public long getHx() {
+        return hx;
     }
 }
