@@ -4,7 +4,11 @@ import systeminterface.INQueens;
 import java.util.*;
 
 public class BeamSearching implements INQueens {
-    private long hx;
+    private final int width;
+    private long hx=-1;
+    public BeamSearching(int width){
+        this.width=width;
+    }
     
     private int heuristic(int[] board) {
         int conflict = 0;
@@ -19,9 +23,8 @@ public class BeamSearching implements INQueens {
 
     @Override
     public void solve(int n) {
+        hx=-1;
         Scanner sc=new Scanner(System.in);
-        System.out.print("Enter the beam width: ");
-        int width=sc.nextInt();
 
         ArrayList<int[]> board = new ArrayList<>();
 
@@ -31,8 +34,9 @@ public class BeamSearching implements INQueens {
             ArrayList<int[]> candidates = new ArrayList<>();
 
             for (int[] state : board) {
-                System.out.println("Current state: " + Arrays.toString(state));
+                //System.out.println("Current state: " + Arrays.toString(state));
                 if (state.length == n && heuristic(state) == 0) {
+                    hx=0;
                     System.out.println("Solution found..");
                     printBoard(state, n);
                     return;
@@ -45,7 +49,7 @@ public class BeamSearching implements INQueens {
                     if (heuristic(newState) == 0) candidates.add(newState);
                 }
             }
-            System.out.println("Candidates: " + candidates.size());
+            //System.out.println("Candidates: " + candidates.size());
             if (candidates.isEmpty()) {
                 System.out.println("No solution found.");
                 return;
@@ -68,7 +72,7 @@ public class BeamSearching implements INQueens {
 
     @Override 
     public String getAlgorithmName() {
-        return "Hill Climbing";
+        return "Beam Searching Algorithm(Beam Width: "+this.width+")";
     }    
 
     @Override
